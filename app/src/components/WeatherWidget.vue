@@ -1,41 +1,44 @@
 <template>
-      <div class="col-12 col-md-4 col-sm-12 col-xs-12">
-        <div class="card p-4">
-          <div class="d-flex">
-            <h6 class="flex-grow-1">{{city}}</h6>
-            <h6 v-if="weather_data">{{ new Date(weather_data.location.localtime_epoch * 1000).getTime() }}</h6>
-          </div>
+  <div class="col-12 col-md-4 col-sm-12 col-xs-12">
+    <div class="card p-4">
+      <div class="d-flex">
+        <h6 class="flex-grow-1">{{city}}</h6>
+        <h6 v-if="weather_data">{{ new Date(weather_data.location.localtime_epoch * 1000).getTime() }}</h6>
+      </div>
 
-          <div class="d-flex flex-column temp mt-5 mb-3">
-            <h1 class="mb-0 font-weight-bold" id="heading" v-if="weather_data"> {{ weather_data.current.temp_c }}&deg; C </h1>
-            <span class="small grey" v-if="weather_data">{{ weather_data.current?.condition?.text }}</span>
-          </div>
+      <div class="d-flex flex-column temp mt-5 mb-3">
+        <h1 class="mb-0 font-weight-bold" id="heading" v-if="weather_data">
+          {{ weather_data.current.temp_c }}&deg; C
+        </h1>
+        <span class="small grey" v-if="weather_data">{{ weather_data.current.condition.text }}</span>
+      </div>
 
-          <div class="d-flex">
-            <div class="temp-details flex-grow-1">
-              <p class="my-1">
-                <img src="https://i.imgur.com/B9kqOzp.png" height="17px" >
+      <div class="d-flex">
+        <div class="temp-details flex-grow-1">
+          <p class="my-1">
+            <i class="bi bi-wind"></i>
 
-                <span> 40 km/h  </span>
-              </p>
+            <span v-if="weather_data" class="m-lg-2">{{ weather_data.current.wind_kph }} km/h</span>
+          </p>
 
-              <p class="my-1">
-                <i class="fa fa-tint mr-2" aria-hidden="true"></i>
-                <span> 84% </span>
-              </p>
+          <p class="my-1">
+            <i class="bi bi-moisture"></i>
 
-              <p class="my-1">
-                <img src="https://i.imgur.com/wGSJ8C5.png" height="17px" >
-                <span> 0.2h </span>
-              </p>
-            </div>
+            <span v-if="weather_data" class="m-lg-2"> {{ weather_data.current.humidity }}% </span>
+          </p>
 
-            <div>
-              <img src="https://i.imgur.com/Qw7npIg.png" width="100px">
-            </div>
-          </div>
+          <p class="my-1">
+            <img src="https://i.imgur.com/wGSJ8C5.png" height="17px" >
+            <span> 0.2h </span>
+          </p>
+        </div>
+
+        <div>
+          <img src="https://i.imgur.com/Qw7npIg.png" width="100px">
         </div>
       </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -56,7 +59,6 @@ export default {
         {crossDomain: true}
     )
 
-    console.log(response.data)
     this.weather_data = response.data
   },
   methods: {

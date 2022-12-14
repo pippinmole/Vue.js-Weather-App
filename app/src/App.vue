@@ -1,24 +1,15 @@
 <script setup>
-import Header from "@/components/Header.vue";
-import WeatherWidget from "@/components/WeatherWidget.vue";
+import Header from "@/components/HeaderComponent.vue";
+import HeaderComponent from "@/components/HeaderComponent.vue";
 </script>
 
 <template>
   <header>
-    <h2>Header here</h2>
+    <HeaderComponent></HeaderComponent>
   </header>
 
   <main>
     <router-view />
-
-    <div class="container-fluid">
-      <div class="row justify-content-center">
-        <WeatherWidget city="London"></WeatherWidget>
-        <WeatherWidget city="Paris"></WeatherWidget>
-        <WeatherWidget city="Aberdeen"></WeatherWidget>
-        <WeatherWidget city="Texas"></WeatherWidget>
-      </div>
-    </div>
   </main>
 </template>
 

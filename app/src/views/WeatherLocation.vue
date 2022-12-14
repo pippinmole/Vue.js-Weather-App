@@ -1,8 +1,8 @@
 <template>
-
-  <h4>Weather for {{ $route.params.id }}</h4>
-
-
+  <div v-if="weather_data">
+    <h4>Weather for {{ weather_data.location.name }}</h4>
+    Weather is available! {{JSON.stringify(weather_data)}}
+  </div>
 </template>
 
 <script>
@@ -12,25 +12,23 @@ export default {
   name: "WeatherLocation",
   data() {
     return {
-      weather_data: "Loading..."
+      weather_data: null
     }
   },
   async created() {
     console.log("Getting weather data...")
-    this.weather_data = "Loading..."
+    this.weather_data = null
 
-    axios.get("https://geocoding-api.open-meteo.com/v1/search?name=" + this.$route.params.id).then((response) => {
-      const latitude = response.data.results[0].latitude
-      const longitude = response.data.results[0].longitude
+    const response = await axios.get(
+        "https://api.weatherapi.com/v1/current.json?key=bf331a11a1f94c6d898170812221412&q=" + this.$route.params.id + "&aqi=no",
+        {crossDomain: true}
+    )
 
-      axios.get("https://api.open-meteo.com/v1/forecast?latitude=" + latitude + "&longitude=" + longitude + "&hourly=temperature_2m")
-        .then((response) => {
-          this.weather_data = response.data
-          console.log("Got weather data:" + this.weather_data)
-        }).catch(e => {
-          console.log("Failed to find weather data...", e)
-        });
-    })
+    if(response.status === 200) {
+      this.weather_data = response.data
+    }
+
+    console.log("Got weather data")
   },
   methods: {
 
