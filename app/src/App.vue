@@ -1,16 +1,17 @@
 <script setup>
 import Header from "@/components/Header.vue";
-import TextInputField from "@/components/TextInputField.vue";
 </script>
 
 <template>
   <header>
-      <Header></Header>
+    <h2>Homepage</h2>
   </header>
 
   <main>
-    <TextInputField></TextInputField>
+    <router-link to="/">Go to Home</router-link>
+    <router-link to="/WeatherLocation">Go to About</router-link>
 
+    <router-view></router-view>
   </main>
 </template>
 
